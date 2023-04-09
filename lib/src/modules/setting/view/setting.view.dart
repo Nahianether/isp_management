@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../components/app.bar/appbar.dart';
+import '../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../../theme/model/theme.model.dart';
 import '../../../theme/provider/theme.provider.dart';
 
@@ -10,7 +12,10 @@ class SettingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: CustomAppbar(title: 'Setting'),
+      ),
       body: Center(
         child: Consumer(
           builder: (_, ref, __) {
@@ -25,6 +30,7 @@ class SettingView extends StatelessWidget {
           },
         ),
       ),
+      bottomNavigationBar: const KBottomNavBar(),
     );
   }
 }
