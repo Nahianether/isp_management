@@ -114,7 +114,7 @@ class UserDetails extends ConsumerWidget {
                             child: Padding(
                               padding: EdgeInsets.all(5.0),
                               child: Text(
-                                'Month',
+                                'Month of Bill',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
@@ -126,7 +126,7 @@ class UserDetails extends ConsumerWidget {
                             child: Padding(
                               padding: EdgeInsets.all(5.0),
                               child: Text(
-                                'Package Price',
+                                'Bill Amount',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
@@ -138,7 +138,7 @@ class UserDetails extends ConsumerWidget {
                             child: Padding(
                               padding: EdgeInsets.all(5.0),
                               child: Text(
-                                'Bill Date',
+                                'Bill Paid Date',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
@@ -156,7 +156,7 @@ class UserDetails extends ConsumerWidget {
                       5,
                       (index) => const TableRow(
                         children: [
-                          Center(child: Text('January')),
+                          Center(child: Text('January-2023')),
                           Center(child: Text('500')),
                           Center(child: Text('2021-01-01')),
                         ],

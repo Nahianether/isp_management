@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isp_management/src/extensions/extensions.dart';
+import '../../../extensions/extensions.dart';
 
 import '../../../components/app.bar/appbar.dart';
 import '../../../components/bottom.navbar/bottom.navbar.dart';

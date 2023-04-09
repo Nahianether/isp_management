@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:isp_management/src/extensions/extensions.dart';
+import '../../../extensions/extensions.dart';
 
-import '../../../modules/home/view/home.view.dart';
+import '../../../modules/all.user/view/all.user.view.dart';
 import '../../../modules/paid.user/view/paid.user.dart';
 import '../../../modules/setting/view/setting.view.dart';
 import '../../../modules/un.paid.user/view/un.paid.user.dart';
@@ -12,7 +12,7 @@ class BottomNavBarProvider {
   static Widget _screen() {
     switch (selected) {
       case Screens.one:
-        return const HomeView();
+        return const AllUserView();
       case Screens.two:
         return const PaidUser();
       case Screens.three:
@@ -20,7 +20,7 @@ class BottomNavBarProvider {
       case Screens.four:
         return const SettingView();
       default:
-        return const HomeView();
+        return const AllUserView();
     }
   }
 

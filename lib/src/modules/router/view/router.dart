@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerWidget, WidgetRef;
 
 import '../../../localization/loalization.dart';
-import '../../home/view/home.view.dart' show HomeView;
+import '../../all.user/view/all.user.view.dart' show AllUserView;
 
 class AppRouter extends ConsumerWidget {
   const AppRouter({Key? key}) : super(key: key);
@@ -13,6 +13,6 @@ class AppRouter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     t = AppLocalizations.of(context);
-    return const HomeView();
+    return const AllUserView();
   }
 }

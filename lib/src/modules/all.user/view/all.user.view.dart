@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:isp_management/src/components/bottom.navbar/bottom.navbar.dart';
-import 'package:isp_management/src/extensions/extensions.dart';
-import 'package:isp_management/src/modules/user.details/view/user.details.dart';
+import '../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../extensions/extensions.dart';
+import '../../add.new.user/view/add.new.user.dart';
+import '../../user.details/view/user.details.dart';
 
 import '../../../components/app.bar/appbar.dart';
 import '../../../theme/themes/themes.dart';
 
 String dropdownValue = 'Paid';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class AllUserView extends StatefulWidget {
+  const AllUserView({Key? key}) : super(key: key);
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<AllUserView> createState() => _AllUserViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _AllUserViewState extends State<AllUserView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +99,12 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       bottomNavigationBar: const KBottomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await context.push(const AddNewUser());
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
