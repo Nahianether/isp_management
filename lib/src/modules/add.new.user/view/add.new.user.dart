@@ -12,7 +12,6 @@ class AddNewUser extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String now = DateFormat('dd MMMM, yyyy').format(DateTime.now());
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
@@ -21,63 +20,124 @@ class AddNewUser extends ConsumerWidget {
       body: SizedBox(
         height: context.height,
         width: context.width,
-        child: Column(
-          children: [
-            Column(
-              children: [
-                const Text('User Name'),
-                TextFormField(
-                  decoration: inputDecoration.copyWith(
-                    hintText: 'Name',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'User Name: ',
+                    style: TextStyle(fontSize: 16),
                   ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('User Phone'),
-                TextFormField(
-                  decoration: inputDecoration.copyWith(
-                    hintText: 'Phone',
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('User Address'),
-                TextFormField(
-                  decoration: inputDecoration.copyWith(
-                    hintText: 'Address',
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('User Package Name'),
-                TextFormField(
-                  decoration: inputDecoration.copyWith(
-                    hintText: 'Package Name',
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('Connection Date'),
-                Row(
-                  children: [
-                    Text(now),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.calendar_today),
+                  TextFormField(
+                    decoration: inputDecoration.copyWith(
+                      hintText: 'Name',
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'User Phone: ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  TextFormField(
+                    decoration: inputDecoration.copyWith(
+                      hintText: 'Phone',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'User Address: ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  TextFormField(
+                    decoration: inputDecoration.copyWith(
+                      hintText: 'Address',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'User Package Name: ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  TextFormField(
+                    decoration: inputDecoration.copyWith(
+                      hintText: 'Package Name',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'User Package Price: ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  TextFormField(
+                    decoration: inputDecoration.copyWith(
+                      hintText: 'Package Price',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Connection Date: ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  TextFormField(
+                    readOnly: true,
+                    decoration: inputDecoration.copyWith(
+                      hintText: 'Pick a date',
+                      suffixIcon: InkWell(
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2015, 8),
+                            lastDate: DateTime(2101),
+                          );
+                          if (picked != null) {
+                            String now =
+                                DateFormat('dd MMMM, yyyy').format(picked);
+                            print('Date: $now');
+                          }
+                        },
+                        child: const Icon(Icons.calendar_month_rounded),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const KBottomNavBar(),
