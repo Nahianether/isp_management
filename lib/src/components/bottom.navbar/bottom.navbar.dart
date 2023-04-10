@@ -20,12 +20,11 @@ class KBottomNavBar extends StatelessWidget {
           icon: Icon(Icons.home),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.network_wifi_rounded),
+          icon: Icon(Icons.wifi),
           label: 'Paid',
         ),
         BottomNavigationBarItem(
-          icon:
-              Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_rounded),
+          icon: Icon(Icons.wifi_off),
           label: 'Unpaid',
         ),
         BottomNavigationBarItem(

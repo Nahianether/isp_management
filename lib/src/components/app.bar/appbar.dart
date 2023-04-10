@@ -78,7 +78,7 @@ class CustomAppbar extends ConsumerWidget {
                   ];
                   await sendSMSAll(recipents, message1);
                 },
-                icon: const Icon(Icons.message),
+                icon: const Icon(Icons.messenger_rounded),
               )
             : const SizedBox.shrink(),
       ],
