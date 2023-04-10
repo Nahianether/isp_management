@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import '../../../extensions/extensions.dart';
 
-import '../../../modules/all.user/view/all.user.view.dart';
-import '../../../modules/paid.user/view/paid.user.dart';
+import '../../../modules/user/all.user/view/all.user.view.dart';
+import '../../../modules/user/paid.user/view/paid.user.dart';
 import '../../../modules/setting/view/setting.view.dart';
-import '../../../modules/un.paid.user/view/un.paid.user.dart';
+import '../../../modules/user/un.paid.user/view/un.paid.user.dart';
 
 class BottomNavBarProvider {
   static Screens selected = Screens.one;

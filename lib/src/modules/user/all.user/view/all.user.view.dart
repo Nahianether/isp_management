@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../components/bottom.navbar/bottom.navbar.dart';
-import '../../../extensions/extensions.dart';
+import '../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../extensions/extensions.dart';
 import '../../add.new.user/view/add.new.user.dart';
 import '../../user.details/view/user.details.dart';
 
-import '../../../components/app.bar/appbar.dart';
-import '../../../theme/themes/themes.dart';
+import '../../../../components/app.bar/appbar.dart';
+import '../../../../theme/themes/themes.dart';
 
 String dropdownValue = 'Paid';
 

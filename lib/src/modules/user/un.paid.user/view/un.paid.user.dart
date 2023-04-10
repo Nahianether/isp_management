@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../extensions/extensions.dart';
+import '../../../../extensions/extensions.dart';
 
-import '../../../components/app.bar/appbar.dart';
-import '../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../components/app.bar/appbar.dart';
+import '../../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../user.details/view/user.details.dart';
 
 class UnPaidUser extends ConsumerWidget {

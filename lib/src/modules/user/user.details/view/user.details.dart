@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../components/app.bar/appbar.dart';
-import '../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../components/app.bar/appbar.dart';
+import '../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../components/call.sms.function/single.call.sms.function.dart';
 
 class UserDetails extends ConsumerWidget {
   const UserDetails({super.key});
@@ -33,29 +34,39 @@ class UserDetails extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: const Icon(
-                    Icons.call,
+                InkWell(
+                  onTap: () async {
+                    await makePhoneCall('+880-1724324832');
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Icon(
+                      Icons.call,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: const Icon(
-                    Icons.message,
+                InkWell(
+                  onTap: () async {
+                    await sendSMS('+880-1724324832', 'This is a test message!');
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Icon(
+                      Icons.message,
+                    ),
                   ),
                 ),
               ],
