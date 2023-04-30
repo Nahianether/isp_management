@@ -22,121 +22,143 @@ class AddNewUser extends ConsumerWidget {
         width: context.width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'User Name: ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: inputDecoration.copyWith(
-                      hintText: 'Name',
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'User Name: ',
+                      style: TextStyle(fontSize: 16),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'User Phone: ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: inputDecoration.copyWith(
-                      hintText: 'Phone',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'User Address: ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: inputDecoration.copyWith(
-                      hintText: 'Address',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'User Package Name: ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: inputDecoration.copyWith(
-                      hintText: 'Package Name',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'User Package Price: ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: inputDecoration.copyWith(
-                      hintText: 'Package Price',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'Connection Date: ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    readOnly: true,
-                    decoration: inputDecoration.copyWith(
-                      hintText: 'Pick a date',
-                      suffixIcon: InkWell(
-                        onTap: () async {
-                          final DateTime? picked = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2015, 8),
-                            lastDate: DateTime(2101),
-                          );
-                          if (picked != null) {
-                            String now =
-                                DateFormat('dd MMMM, yyyy').format(picked);
-                            print('Date: $now');
-                          }
-                        },
-                        child: const Icon(Icons.calendar_month_rounded),
+                    TextFormField(
+                      decoration: inputDecoration.copyWith(
+                        hintText: 'Name',
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'User Phone: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.phone,
+                      decoration: inputDecoration.copyWith(
+                        hintText: 'Phone',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'User Alternative Phone: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.phone,
+                      decoration: inputDecoration.copyWith(
+                        hintText: 'Phone',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'User Address: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.streetAddress,
+                      decoration: inputDecoration.copyWith(
+                        hintText: 'Address',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'User Package Name: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextFormField(
+                      decoration: inputDecoration.copyWith(
+                        hintText: 'Package Name',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'User Package Price: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: inputDecoration.copyWith(
+                        hintText: 'Package Price',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Connection Date: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextFormField(
+                      readOnly: true,
+                      decoration: inputDecoration.copyWith(
+                        hintText: 'Pick a date',
+                        suffixIcon: InkWell(
+                          onTap: () async {
+                            final DateTime? picked = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2015, 8),
+                              lastDate: DateTime(2101),
+                            );
+                            if (picked != null) {
+                              String now =
+                                  DateFormat('dd MMMM, yyyy').format(picked);
+                              print('Date: $now');
+                            }
+                          },
+                          child: const Icon(Icons.calendar_month_rounded),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

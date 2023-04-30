@@ -28,6 +28,10 @@ class KBottomNavBar extends StatelessWidget {
           label: 'Unpaid',
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.signal_wifi_0_bar_rounded),
+          label: 'All Unpaid',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: 'Settings',
         ),

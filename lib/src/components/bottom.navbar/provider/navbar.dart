@@ -4,6 +4,7 @@ import '../../../extensions/extensions.dart';
 import '../../../modules/user/all.user/view/all.user.view.dart';
 import '../../../modules/user/paid.user/view/paid.user.dart';
 import '../../../modules/setting/view/setting.view.dart';
+import '../../../modules/user/total.un.paid.user.dart/view/total.un.paid.user.dart';
 import '../../../modules/user/un.paid.user/view/un.paid.user.dart';
 
 class BottomNavBarProvider {
@@ -18,6 +19,8 @@ class BottomNavBarProvider {
       case Screens.three:
         return const UnPaidUser();
       case Screens.four:
+        return const TotalUnPaidUser();
+      case Screens.five:
         return const SettingView();
       default:
         return const AllUserView();
@@ -33,4 +36,4 @@ class BottomNavBarProvider {
   }
 }
 
-enum Screens { one, two, three, four }
+enum Screens { one, two, three, four, five }

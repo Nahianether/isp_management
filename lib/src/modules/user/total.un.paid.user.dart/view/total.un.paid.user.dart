@@ -7,8 +7,8 @@ import '../../../../components/app.bar/appbar.dart';
 import '../../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../user.details/view/user.details.dart';
 
-class UnPaidUser extends ConsumerWidget {
-  const UnPaidUser({super.key});
+class TotalUnPaidUser extends ConsumerWidget {
+  const TotalUnPaidUser({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +16,7 @@ class UnPaidUser extends ConsumerWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: CustomAppbar(
-            title: 'UnPaid User List',
+            title: 'All UnPaid User List',
             isAllUser: true,
             allRecipents: recipents,
             message: message),
