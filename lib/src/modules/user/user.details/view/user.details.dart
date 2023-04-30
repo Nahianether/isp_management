@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:isp_management/src/extensions/extensions.dart';
+import 'package:isp_management/src/modules/user/model/user.dart';
 
 import '../../../../components/app.bar/appbar.dart';
 import '../../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../../../components/call.sms.function/single.call.sms.function.dart';
+import '../../../../components/text.field/text.field.provider.dart';
 
 class UserDetails extends ConsumerWidget {
-  const UserDetails({super.key});
+  const UserDetails({required this.user, super.key});
+
+  final User user;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,26 +27,47 @@ class UserDetails extends ConsumerWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Text(
-                  'Abdur Rahman Kaderi',
-                  style: TextStyle(
+                Text(
+                  user.fullName,
+                  style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.phone,
                       size: 14,
                       color: Colors.grey,
                     ),
                     Text(
-                      '+880-1724324832',
-                      style: TextStyle(
+                      user.phoneNumber,
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Text('Alternative Phone Number:'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.phone,
+                          size: 14,
+                          color: Colors.grey,
+                        ),
+                        Text(
+                          user.alternativePhoneNumber ?? 'N/A',
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -51,7 +78,7 @@ class UserDetails extends ConsumerWidget {
                     children: [
                       InkWell(
                         onTap: () async {
-                          await makePhoneCall('+880-1724324832');
+                          await makePhoneCall(user.phoneNumber);
                         },
                         child: Container(
                           height: 40,
@@ -70,8 +97,38 @@ class UserDetails extends ConsumerWidget {
                       ),
                       InkWell(
                         onTap: () async {
-                          await sendSMS(
-                              '+880-1724324832', 'This is a test message!');
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Send SMS'),
+                                  content: TextFormField(
+                                    controller:
+                                        ref.watch(textProvider('send_sms')),
+                                    decoration: const InputDecoration(
+                                      hintText: 'Enter your message',
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        context.pop();
+                                      },
+                                      child: const Text('No'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await sendSMS(
+                                            user.phoneNumber,
+                                            ref
+                                                .watch(textProvider('send_sms'))
+                                                .text);
+                                      },
+                                      child: const Text('Yes'),
+                                    ),
+                                  ],
+                                );
+                              });
                         },
                         child: Container(
                           height: 40,
@@ -90,21 +147,54 @@ class UserDetails extends ConsumerWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.location_on,
                       size: 14,
                       color: Colors.grey,
                     ),
-                    Text('Kashinathpur',
-                        style: TextStyle(
-                          fontSize: 15,
-                        )),
+                    Text(
+                      user.address,
+                      style: const TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
                   ],
                 ),
-                const Text('Package Name: 1 Mbps'),
-                const Text('Package Price: 500'),
-                const Text('Connection Date: 2021-01-01'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.pages,
+                      size: 14,
+                      color: Colors.grey,
+                    ),
+                    Text('Package Name: ${user.packageName}'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.currency_exchange_rounded,
+                      size: 14,
+                      color: Colors.grey,
+                    ),
+                    Text('Package Price: ${user.packagePrice}'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.data_thresholding_outlined,
+                      size: 14,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                        'Connection Date: ${DateFormat('dd MMMM, yyyy').format(user.connectionDate)}'),
+                  ],
+                ),
                 Table(
                   children: const [
                     TableRow(
@@ -150,14 +240,25 @@ class UserDetails extends ConsumerWidget {
                   ],
                 ),
                 Table(
-                  border: TableBorder.all(),
+                  border: TableBorder.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
                   children: List.generate(
-                    10,
-                    (index) => const TableRow(
+                    user.billHistory?.length ?? 0,
+                    (index) => TableRow(
                       children: [
-                        Center(child: Text('January-2023')),
-                        Center(child: Text('500')),
-                        Center(child: Text('2021-01-01')),
+                        Center(
+                          child: Text(DateFormat('MMMM, yyyy')
+                              .format(user.billHistory![index].monthOfBill!)),
+                        ),
+                        Center(
+                          child: Text(user.billHistory![index].billAmount!),
+                        ),
+                        Center(
+                          child: Text(DateFormat('dd MMMM, yyyy')
+                              .format(user.billHistory![index].billPaidDate!)),
+                        ),
                       ],
                     ),
                   ),

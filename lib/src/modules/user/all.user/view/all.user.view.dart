@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../../components/bottom.navbar/bottom.navbar.dart';
-import '../../../../constants/constants.dart';
-import '../../../../extensions/extensions.dart';
-import '../../add.new.user/view/add.new.user.dart';
-import '../../user.details/view/user.details.dart';
+import 'package:isar/isar.dart';
+import 'package:isp_management/src/modules/user/model/user.dart';
 
 import '../../../../components/app.bar/appbar.dart';
+import '../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../constants/constants.dart';
+import '../../../../db/isar.dart';
+import '../../../../extensions/extensions.dart';
 import '../../../../theme/themes/themes.dart';
+import '../../add.new.user/view/add.new.user.dart';
+import '../../user.details/view/user.details.dart';
 
 String dropdownValue = 'Paid';
 
@@ -25,83 +28,97 @@ class _AllUserViewState extends State<AllUserView> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: CustomAppbar(
-            title: 'All User List',
-            isAllUser: true,
-            allRecipents: recipents,
-            message: message),
+          title: 'All User List',
+          isAllUser: true,
+          allRecipents: recipents,
+          message: message,
+        ),
       ),
       body: SizedBox(
         height: context.height,
         width: context.width,
-        child: ListView.builder(
-          itemCount: 100,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () async {
-                await context.push(const UserDetails());
+        child: StreamBuilder<List<User>>(
+          stream: db.users.where().watch(fireImmediately: true),
+          builder: (context, snapshot) {
+            return ListView.builder(
+              itemCount: snapshot.data?.length ?? 0,
+              itemBuilder: (context, index) {
+                User? user = snapshot.data?[index];
+                return InkWell(
+                  onTap: () async {
+                    await context.push(
+                      UserDetails(
+                        user: user,
+                      ),
+                    );
+                  },
+                  borderRadius: BorderRadius.circular(10),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(user?.fullName ?? ''),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.phone,
+                                size: 14,
+                                color: Colors.grey,
+                              ),
+                              Text(user?.phoneNumber ?? ''),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                size: 14,
+                                color: Colors.grey,
+                              ),
+                              Text(user?.address ?? ''),
+                            ],
+                          ),
+                        ],
+                      ),
+                      // trailing: DropdownButton<String>(
+                      //   value: dropdownValue,
+                      //   icon: const Icon(Icons.arrow_drop_down),
+                      //   iconSize: 24,
+                      //   onChanged: (String? newValue) {
+                      //     setState(() {
+                      //       dropdownValue = newValue!;
+                      //     });
+                      //   },
+                      //   items: <String>['Paid', 'Unpaid']
+                      //       .map<DropdownMenuItem<String>>((String value) {
+                      //     return DropdownMenuItem<String>(
+                      //       value: value,
+                      //       child: Text(value),
+                      //     );
+                      //   }).toList(),
+                      // ),
+                      trailing: user!.paymentType == PaymentType.unPaid ||
+                              user.paymentType == PaymentType.allUnPaid
+                          ? IconButton(
+                              icon: const Icon(Icons.payment_rounded),
+                              onPressed: () async {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return PaymnetPopup(
+                                      user: user,
+                                    );
+                                  },
+                                );
+                              },
+                            )
+                          : null,
+                    ),
+                  ),
+                );
               },
-              borderRadius: BorderRadius.circular(10),
-              child: Card(
-                child: ListTile(
-                  title: Text('Abdur Rahman Kaderi$index'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.phone,
-                            size: 14,
-                            color: Colors.grey,
-                          ),
-                          Text('+880-172432483$index'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            size: 14,
-                            color: Colors.grey,
-                          ),
-                          Text('Kashinathpur$index'),
-                        ],
-                      ),
-                    ],
-                  ),
-                  // trailing: DropdownButton<String>(
-                  //   value: dropdownValue,
-                  //   icon: const Icon(Icons.arrow_drop_down),
-                  //   iconSize: 24,
-                  //   onChanged: (String? newValue) {
-                  //     setState(() {
-                  //       dropdownValue = newValue!;
-                  //     });
-                  //   },
-                  //   items: <String>['Paid', 'Unpaid']
-                  //       .map<DropdownMenuItem<String>>((String value) {
-                  //     return DropdownMenuItem<String>(
-                  //       value: value,
-                  //       child: Text(value),
-                  //     );
-                  //   }).toList(),
-                  // ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.payment_rounded),
-                    onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const PaymnetPopup(
-                            amount: 500,
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
             );
           },
         ),
@@ -120,10 +137,10 @@ class _AllUserViewState extends State<AllUserView> {
 class PaymnetPopup extends StatelessWidget {
   const PaymnetPopup({
     super.key,
-    this.amount,
+    this.user,
   });
 
-  final double? amount;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +163,7 @@ class PaymnetPopup extends StatelessWidget {
           ),
           TextFormField(
             keyboardType: TextInputType.number,
-            controller: TextEditingController(text: amount.toString()),
+            controller: TextEditingController(text: user?.packagePrice),
             decoration: inputDecoration.copyWith(
               hintText: 'Amount',
             ),
@@ -177,7 +194,19 @@ class PaymnetPopup extends StatelessWidget {
           child: const Text('Cancel'),
         ),
         ElevatedButton(
-          onPressed: () async {},
+          onPressed: () async {
+            context.pop();
+            user!.paymentType = PaymentType.paid;
+            user!.billHistory = List.from(user!.billHistory ?? [])
+              ..add(
+                BillHistory(
+                  billAmount: user!.packagePrice,
+                  billPaidDate: picker ?? DateTime.now(),
+                  monthOfBill: picker ?? DateTime.now(),
+                ),
+              );
+            await db.writeTxn(() async => await db.users.put(user!));
+          },
           child: const Text('Done'),
         )
       ],

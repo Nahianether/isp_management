@@ -10,13 +10,13 @@ class CustomAppbar extends ConsumerWidget {
     required this.title,
     this.isAllUser = false,
     this.allRecipents,
-    this.message = 'This is a test message!',
+    this.message,
   });
 
   final String title;
   final bool isAllUser;
   final List<String>? allRecipents;
-  final String message;
+  final String? message;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
