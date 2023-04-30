@@ -34,6 +34,11 @@ class UnPaidUser extends ConsumerWidget {
                 .paymentTypeEqualTo(PaymentType.unPaid)
                 .watch(fireImmediately: true),
             builder: (context, snapshot) {
+              if (snapshot.data?.isEmpty ?? true) {
+                return const Center(
+                  child: Text('No User Found'),
+                );
+              }
               return ListView.builder(
                 itemCount: snapshot.data?.length ?? 0,
                 itemBuilder: (context, index) {
