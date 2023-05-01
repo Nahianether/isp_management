@@ -19,7 +19,7 @@ class UserDetails extends ConsumerWidget {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
-        child: CustomAppbar(title: 'User Details'),
+        child: CustomAppbar(title: 'User Details', backButton: true),
       ),
       body: Card(
         child: Padding(
@@ -268,7 +268,7 @@ class UserDetails extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const KBottomNavBar(),
+      // bottomNavigationBar: const KBottomNavBar(),
     );
   }
 }

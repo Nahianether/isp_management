@@ -11,17 +11,20 @@ class CustomAppbar extends ConsumerWidget {
     this.isAllUser = false,
     this.allRecipents,
     this.message,
+    this.backButton = false,
   });
 
   final String title;
   final bool isAllUser;
   final List<String>? allRecipents;
   final String? message;
+  final bool backButton;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String now = DateFormat('dd MMMM, yyyy').format(DateTime.now());
     return AppBar(
+      automaticallyImplyLeading: backButton == true ? true : false,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -47,7 +50,6 @@ class CustomAppbar extends ConsumerWidget {
               )
             : const SizedBox.shrink(),
       ],
-      automaticallyImplyLeading: false,
     );
   }
 }
