@@ -18,6 +18,7 @@ dependencies:
   isar: ^3.0.5
   isar_flutter_libs: ^3.0.5
   logger: ^1.1.0
+  package_info_plus: ^3.1.2
   path: ^1.8.2
   path_provider: ^2.0.12
   riverpod_annotation: ^1.1.1
