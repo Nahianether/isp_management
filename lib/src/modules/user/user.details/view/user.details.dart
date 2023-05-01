@@ -5,7 +5,6 @@ import 'package:isp_management/src/extensions/extensions.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
 
 import '../../../../components/app.bar/appbar.dart';
-import '../../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../../../components/call.sms.function/single.call.sms.function.dart';
 import '../../../../components/text.field/text.field.provider.dart';
 
