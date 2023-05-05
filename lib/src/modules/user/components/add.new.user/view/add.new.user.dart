@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:isp_management/src/db/isar.dart';
-import 'package:isp_management/src/modules/user/model/user.dart';
 
 import '../../../../../components/app.bar/appbar.dart';
 import '../../../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../../../../components/text.field/text.field.provider.dart';
 import '../../../../../extensions/extensions.dart';
 import '../../../../../theme/themes/themes.dart';
-import '../provider/add.new.user.dart';
 
 class AddNewUser extends ConsumerWidget {
   const AddNewUser({super.key});

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isar/isar.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
-import '../../../../../constants/constants.dart';
-import '../../../../../db/isar.dart';
-import '../../../../../extensions/extensions.dart';
 
 import '../../../../../components/app.bar/appbar.dart';
 import '../../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../../constants/constants.dart';
+import '../../../../../extensions/extensions.dart';
 import '../../../user.details/view/user.details.dart';
 import '../../all.user/provider/all.user.provider.dart';
 

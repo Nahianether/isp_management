@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../db/isar.dart';
 import '../../modules/user/model/user.dart';
 
 final textProvider = Provider.family((_, String __) {
