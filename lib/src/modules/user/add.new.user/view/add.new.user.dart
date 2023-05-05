@@ -180,7 +180,7 @@ class AddNewUser extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: const KBottomNavBar(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.small(
         onPressed: () async {
           context.pop();
           final user = User(

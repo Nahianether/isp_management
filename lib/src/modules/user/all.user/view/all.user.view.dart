@@ -129,7 +129,7 @@ class _AllUserViewState extends State<AllUserView> {
         ),
       ),
       bottomNavigationBar: const KBottomNavBar(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.small(
         onPressed: () async {
           await context.push(const AddNewUser());
         },
