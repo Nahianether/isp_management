@@ -1,6 +1,9 @@
 import 'package:isar/isar.dart';
 
+import '../../../db/isar.dart';
+
 part 'user.g.dart';
+part 'user.db.ext.dart';
 
 @Collection()
 class User {
