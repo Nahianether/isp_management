@@ -30,9 +30,11 @@ class UserNotifier extends Notifier<List<User>> {
 
   List<User> preferedUsers([PaymentType? paymentType]) {
     final list = state
-        .where((e) => e.phoneNumber
-            .toLowerCase()
-            .contains(searchCntrlr.text.toLowerCase()))
+        .where((e) =>
+            e.phoneNumber
+                .toLowerCase()
+                .contains(searchCntrlr.text.toLowerCase()) ||
+            e.fullName.toLowerCase().contains(searchCntrlr.text.toLowerCase()))
         .toList();
     if (paymentType == null) return list;
     if (paymentType == PaymentType.paid) {
