@@ -70,7 +70,21 @@ const UserSchema = CollectionSchema(
   deserialize: _userDeserialize,
   deserializeProp: _userDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'paymentType': IndexSchema(
+      id: -3966929649740911419,
+      name: r'paymentType',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'paymentType',
+          type: IndexType.value,
+          caseSensitive: false,
+        )
+      ],
+    )
+  },
   links: {},
   embeddedSchemas: {r'BillHistory': BillHistorySchema},
   getId: _userGetId,
@@ -228,6 +242,14 @@ extension UserQueryWhereSort on QueryBuilder<User, User, QWhere> {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
+
+  QueryBuilder<User, User, QAfterWhere> anyPaymentType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'paymentType'),
+      );
+    });
+  }
 }
 
 extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
@@ -291,6 +313,96 @@ extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
         lower: lowerId,
         includeLower: includeLower,
         upper: upperId,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterWhereClause> paymentTypeEqualTo(
+      PaymentType paymentType) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'paymentType',
+        value: [paymentType],
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterWhereClause> paymentTypeNotEqualTo(
+      PaymentType paymentType) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'paymentType',
+              lower: [],
+              upper: [paymentType],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'paymentType',
+              lower: [paymentType],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'paymentType',
+              lower: [paymentType],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'paymentType',
+              lower: [],
+              upper: [paymentType],
+              includeUpper: false,
+            ));
+      }
+    });
+  }
+
+  QueryBuilder<User, User, QAfterWhereClause> paymentTypeGreaterThan(
+    PaymentType paymentType, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'paymentType',
+        lower: [paymentType],
+        includeLower: include,
+        upper: [],
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterWhereClause> paymentTypeLessThan(
+    PaymentType paymentType, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'paymentType',
+        lower: [],
+        upper: [paymentType],
+        includeUpper: include,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterWhereClause> paymentTypeBetween(
+    PaymentType lowerPaymentType,
+    PaymentType upperPaymentType, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'paymentType',
+        lower: [lowerPaymentType],
+        includeLower: includeLower,
+        upper: [upperPaymentType],
         includeUpper: includeUpper,
       ));
     });

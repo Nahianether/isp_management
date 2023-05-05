@@ -20,6 +20,8 @@ class User {
 
   List<BillHistory>? billHistory;
 
+
+  @Index()
   @enumerated
   PaymentType paymentType;
 

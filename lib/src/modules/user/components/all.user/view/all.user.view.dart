@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
@@ -11,17 +12,13 @@ import '../../../../../extensions/extensions.dart';
 import '../../../../../theme/themes/themes.dart';
 import '../../add.new.user/view/add.new.user.dart';
 import '../../../user.details/view/user.details.dart';
+import '../provider/all.user.provider.dart';
 
 String dropdownValue = 'Paid';
 
-class AllUserView extends StatefulWidget {
+class AllUserView extends StatelessWidget {
   const AllUserView({Key? key}) : super(key: key);
 
-  @override
-  State<AllUserView> createState() => _AllUserViewState();
-}
-
-class _AllUserViewState extends State<AllUserView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,33 +28,42 @@ class _AllUserViewState extends State<AllUserView> {
         allRecipents: recipents,
         message: message,
       ),
-      body: SizedBox(
-        height: context.height,
-        width: context.width,
-        child: StreamBuilder<List<User>>(
-          stream: db.users.where().watch(fireImmediately: true),
-          builder: (context, snapshot) {
-            if (snapshot.data?.isEmpty ?? true) {
-              return const Center(
-                child: Text('No User Found'),
-              );
-            }
-            return ListView.builder(
-              itemCount: snapshot.data?.length ?? 0,
+      body: const Body(),
+      bottomNavigationBar: const KBottomNavBar(),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () async {
+          await context.push(const AddNewUser());
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class Body extends ConsumerWidget {
+  const Body({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(userProvider);
+    final notifier = ref.read(userProvider.notifier);
+    final list = notifier.preferedUsers();
+    return SizedBox(
+      height: context.height,
+      width: context.width,
+      child: list.isEmpty
+          ? const Center(child: Text('No User Found'))
+          : ListView.builder(
+              itemCount: list.length,
               itemBuilder: (context, index) {
-                User? user = snapshot.data?[index];
+                User? user = list[index];
                 return InkWell(
-                  onTap: () async {
-                    await context.push(
-                      UserDetails(
-                        user: user,
-                      ),
-                    );
-                  },
+                  onTap: () async =>
+                      await context.push(UserDetails(user: user)),
                   borderRadius: BorderRadius.circular(10),
                   child: Card(
                     child: ListTile(
-                      title: Text(user?.fullName ?? ''),
+                      title: Text(user.fullName),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -69,7 +75,7 @@ class _AllUserViewState extends State<AllUserView> {
                                 size: 14,
                                 color: Colors.grey,
                               ),
-                              Text(user?.phoneNumber ?? ''),
+                              Text(user.phoneNumber),
                             ],
                           ),
                           Row(
@@ -79,7 +85,7 @@ class _AllUserViewState extends State<AllUserView> {
                                 size: 14,
                                 color: Colors.grey,
                               ),
-                              Text(user?.address ?? ''),
+                              Text(user.address),
                             ],
                           ),
                         ],
@@ -101,7 +107,7 @@ class _AllUserViewState extends State<AllUserView> {
                       //     );
                       //   }).toList(),
                       // ),
-                      trailing: user!.paymentType == PaymentType.unPaid ||
+                      trailing: user.paymentType == PaymentType.unPaid ||
                               user.paymentType == PaymentType.allUnPaid
                           ? IconButton(
                               icon: const Icon(Icons.payment_rounded),
@@ -121,17 +127,7 @@ class _AllUserViewState extends State<AllUserView> {
                   ),
                 );
               },
-            );
-          },
-        ),
-      ),
-      bottomNavigationBar: const KBottomNavBar(),
-      floatingActionButton: FloatingActionButton.small(
-        onPressed: () async {
-          await context.push(const AddNewUser());
-        },
-        child: const Icon(Icons.add),
-      ),
+            ),
     );
   }
 }
