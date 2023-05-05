@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:isar/isar.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
 
 import '../../../../../components/app.bar/appbar.dart';
@@ -53,11 +52,15 @@ class Body extends ConsumerWidget {
       width: context.width,
       child: Column(
         children: [
-          TextFormField(
-            controller: notifier.searchCntrlr,
-            decoration: const InputDecoration(
-              hintText: 'Search',
-              prefixIcon: Icon(Icons.search),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: TextFormField(
+              controller: notifier.searchCntrlr,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Search User',
+                suffixIcon: Icon(Icons.search),
+              ),
             ),
           ),
           Flexible(
