@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../components/app.bar/appbar.dart';
 import '../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../../theme/model/theme.model.dart';
 import '../../../theme/provider/theme.provider.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingView extends StatelessWidget {
   const SettingView({Key? key}) : super(key: key);

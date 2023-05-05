@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:isp_management/src/extensions/extensions.dart';
-import 'package:isp_management/src/modules/user/model/user.dart';
+import '../../../../extensions/extensions.dart';
+import '../../model/user.dart';
 
 import '../../../../components/app.bar/appbar.dart';
 import '../../../../components/call.sms.function/single.call.sms.function.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isp_management/src/modules/user/model/user.dart';
 
 import '../../../../../components/app.bar/appbar.dart';
 import '../../../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../../../../extensions/extensions.dart';
+import '../../../model/user.dart';
 import '../../../user.details/view/user.details.dart';
 import '../../all.user/provider/all.user.provider.dart';
 
