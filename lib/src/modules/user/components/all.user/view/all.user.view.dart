@@ -51,83 +51,96 @@ class Body extends ConsumerWidget {
     return SizedBox(
       height: context.height,
       width: context.width,
-      child: list.isEmpty
-          ? const Center(child: Text('No User Found'))
-          : ListView.builder(
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-                User? user = list[index];
-                return InkWell(
-                  onTap: () async =>
-                      await context.push(UserDetails(user: user)),
-                  borderRadius: BorderRadius.circular(10),
-                  child: Card(
-                    child: ListTile(
-                      title: Text(user.fullName),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.phone,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              Text(user.phoneNumber),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.location_on,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              Text(user.address),
-                            ],
-                          ),
-                        ],
-                      ),
-                      // trailing: DropdownButton<String>(
-                      //   value: dropdownValue,
-                      //   icon: const Icon(Icons.arrow_drop_down),
-                      //   iconSize: 24,
-                      //   onChanged: (String? newValue) {
-                      //     setState(() {
-                      //       dropdownValue = newValue!;
-                      //     });
-                      //   },
-                      //   items: <String>['Paid', 'Unpaid']
-                      //       .map<DropdownMenuItem<String>>((String value) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: value,
-                      //       child: Text(value),
-                      //     );
-                      //   }).toList(),
-                      // ),
-                      trailing: user.paymentType == PaymentType.unPaid ||
-                              user.paymentType == PaymentType.allUnPaid
-                          ? IconButton(
-                              icon: const Icon(Icons.payment_rounded),
-                              onPressed: () async {
-                                await showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return PaymnetPopup(
-                                      user: user,
-                                    );
-                                  },
-                                );
-                              },
-                            )
-                          : null,
-                    ),
-                  ),
-                );
-              },
+      child: Column(
+        children: [
+          TextFormField(
+            controller: notifier.searchCntrlr,
+            decoration: const InputDecoration(
+              hintText: 'Search',
+              prefixIcon: Icon(Icons.search),
             ),
+          ),
+          Flexible(
+            child: list.isEmpty
+                ? const Center(child: Text('No User Found'))
+                : ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      User? user = list[index];
+                      return InkWell(
+                        onTap: () async =>
+                            await context.push(UserDetails(user: user)),
+                        borderRadius: BorderRadius.circular(10),
+                        child: Card(
+                          child: ListTile(
+                            title: Text(user.fullName),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.phone,
+                                      size: 14,
+                                      color: Colors.grey,
+                                    ),
+                                    Text(user.phoneNumber),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on,
+                                      size: 14,
+                                      color: Colors.grey,
+                                    ),
+                                    Text(user.address),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            // trailing: DropdownButton<String>(
+                            //   value: dropdownValue,
+                            //   icon: const Icon(Icons.arrow_drop_down),
+                            //   iconSize: 24,
+                            //   onChanged: (String? newValue) {
+                            //     setState(() {
+                            //       dropdownValue = newValue!;
+                            //     });
+                            //   },
+                            //   items: <String>['Paid', 'Unpaid']
+                            //       .map<DropdownMenuItem<String>>((String value) {
+                            //     return DropdownMenuItem<String>(
+                            //       value: value,
+                            //       child: Text(value),
+                            //     );
+                            //   }).toList(),
+                            // ),
+                            trailing: user.paymentType == PaymentType.unPaid ||
+                                    user.paymentType == PaymentType.allUnPaid
+                                ? IconButton(
+                                    icon: const Icon(Icons.payment_rounded),
+                                    onPressed: () async {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return PaymnetPopup(
+                                            user: user,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  )
+                                : null,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }

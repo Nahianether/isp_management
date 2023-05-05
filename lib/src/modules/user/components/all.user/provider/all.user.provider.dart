@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 
@@ -15,12 +16,24 @@ final usersFutureProvider = FutureProvider<List<User>>((ref) async {
 typedef UserProvider = NotifierProvider<UserNotifier, List<User>>;
 
 final userProvider = UserProvider(UserNotifier.new);
+
 class UserNotifier extends Notifier<List<User>> {
+  TextEditingController searchCntrlr = TextEditingController();
+
   @override
-  List<User> build() => ref.watch(usersFutureProvider).value ?? [];
+  List<User> build() {
+    listener();
+    return ref.watch(usersFutureProvider).value ?? [];
+  }
+
+  listener() => searchCntrlr.addListener(() => ref.notifyListeners());
 
   List<User> preferedUsers([PaymentType? paymentType]) {
-    final list = state;
+    final list = state
+        .where((e) => e.phoneNumber
+            .toLowerCase()
+            .contains(searchCntrlr.text.toLowerCase()))
+        .toList();
     if (paymentType == null) return list;
     if (paymentType == PaymentType.paid) {
       return list.where((e) => e.paymentType == PaymentType.paid).toList();
