@@ -8,79 +8,75 @@ import '../../../../../components/bottom.navbar/bottom.navbar.dart';
 import '../../../../../db/isar.dart';
 import '../../../../../extensions/extensions.dart';
 import '../../../user.details/view/user.details.dart';
+import '../../all.user/provider/all.user.provider.dart';
 
-class PaidUser extends ConsumerWidget {
+class PaidUser extends StatelessWidget {
   const PaidUser({super.key});
 
   @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      appBar: CustomAppbar(title: 'Paid User List'),
+      body: Body(),
+      bottomNavigationBar: KBottomNavBar(),
+    );
+  }
+}
+
+class Body extends ConsumerWidget {
+  const Body({super.key});
+
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: const CustomAppbar(title: 'Paid User List'),
-      body: SizedBox(
-        height: context.height,
-        width: context.width,
-        child: StreamBuilder<List<User>>(
-            stream: db.users
-                .where()
-                .filter()
-                .paymentTypeEqualTo(PaymentType.paid)
-                .watch(fireImmediately: true),
-            builder: (context, snapshot) {
-              if (snapshot.data?.isEmpty ?? true) {
-                return const Center(
-                  child: Text('No User Found'),
-                );
-              }
-              return ListView.builder(
-                itemCount: snapshot.data?.length ?? 0,
-                itemBuilder: (context, index) {
-                  User? user = snapshot.data?[index];
-                  return InkWell(
-                    onTap: () async {
-                      await context.push(
-                        UserDetails(
-                          user: user!,
+    ref.watch(userProvider);
+    final notifier = ref.read(userProvider.notifier);
+    final list = notifier.preferedUsers(PaymentType.paid);
+    return SizedBox(
+      height: context.height,
+      width: context.width,
+      child: list.isEmpty
+          ? const Center(child: Text('No User Found'))
+          : ListView.builder(
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          User? user = list[index];
+          return InkWell(
+            onTap: () async => await context.push(UserDetails(user: user)),
+            borderRadius: BorderRadius.circular(10),
+            child: Card(
+              child: ListTile(
+                title: Text(user.fullName),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.phone,
+                          size: 14,
+                          color: Colors.grey,
                         ),
-                      );
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Card(
-                      child: ListTile(
-                        title: Text(user?.fullName ?? ''),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.phone,
-                                  size: 14,
-                                  color: Colors.grey,
-                                ),
-                                Text(user?.phoneNumber ?? ''),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  size: 14,
-                                  color: Colors.grey,
-                                ),
-                                Text(user?.address ?? ''),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                        Text(user.phoneNumber),
+                      ],
                     ),
-                  );
-                },
-              );
-            }),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          size: 14,
+                          color: Colors.grey,
+                        ),
+                        Text(user.address),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
-      bottomNavigationBar: const KBottomNavBar(),
     );
   }
 }
