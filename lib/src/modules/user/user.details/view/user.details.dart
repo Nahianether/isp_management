@@ -16,10 +16,7 @@ class UserDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: CustomAppbar(title: 'User Details', backButton: true),
-      ),
+      appBar: const CustomAppbar(title: 'User Details', backButton: true),
       body: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

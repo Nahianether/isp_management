@@ -4,11 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:isp_management/src/db/isar.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
 
-import '../../../../components/app.bar/appbar.dart';
-import '../../../../components/bottom.navbar/bottom.navbar.dart';
-import '../../../../components/text.field/text.field.provider.dart';
-import '../../../../extensions/extensions.dart';
-import '../../../../theme/themes/themes.dart';
+import '../../../../../components/app.bar/appbar.dart';
+import '../../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../../components/text.field/text.field.provider.dart';
+import '../../../../../extensions/extensions.dart';
+import '../../../../../theme/themes/themes.dart';
 import '../provider/add.new.user.dart';
 
 class AddNewUser extends ConsumerWidget {
@@ -18,10 +18,7 @@ class AddNewUser extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(addUserNotifier.notifier);
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: CustomAppbar(title: 'Add New User'),
-      ),
+      appBar: const CustomAppbar(title: 'Add New User'),
       body: SizedBox(
         height: context.height,
         width: context.width,

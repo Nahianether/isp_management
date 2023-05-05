@@ -2,28 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
-import '../../../../constants/constants.dart';
-import '../../../../db/isar.dart';
-import '../../../../extensions/extensions.dart';
 
-import '../../../../components/app.bar/appbar.dart';
-import '../../../../components/bottom.navbar/bottom.navbar.dart';
-import '../../user.details/view/user.details.dart';
+import '../../../../../components/app.bar/appbar.dart';
+import '../../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../../db/isar.dart';
+import '../../../../../extensions/extensions.dart';
+import '../../../user.details/view/user.details.dart';
 
-class UnPaidUser extends ConsumerWidget {
-  const UnPaidUser({super.key});
+class PaidUser extends ConsumerWidget {
+  const PaidUser({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: CustomAppbar(
-            title: 'UnPaid User List',
-            isAllUser: true,
-            allRecipents: recipents,
-            message: message),
-      ),
+      appBar: const CustomAppbar(title: 'Paid User List'),
       body: SizedBox(
         height: context.height,
         width: context.width,
@@ -31,7 +23,7 @@ class UnPaidUser extends ConsumerWidget {
             stream: db.users
                 .where()
                 .filter()
-                .paymentTypeEqualTo(PaymentType.unPaid)
+                .paymentTypeEqualTo(PaymentType.paid)
                 .watch(fireImmediately: true),
             builder: (context, snapshot) {
               if (snapshot.data?.isEmpty ?? true) {

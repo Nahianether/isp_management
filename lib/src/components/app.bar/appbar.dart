@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../call.sms.function/multiple.sms.function.dart';
 
-class CustomAppbar extends ConsumerWidget {
+class CustomAppbar extends ConsumerWidget  with PreferredSizeWidget{
   const CustomAppbar({
     super.key,
     required this.title,
@@ -52,4 +52,7 @@ class CustomAppbar extends ConsumerWidget {
       ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
 }

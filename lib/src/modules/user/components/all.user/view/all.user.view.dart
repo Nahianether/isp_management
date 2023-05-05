@@ -3,14 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
 
-import '../../../../components/app.bar/appbar.dart';
-import '../../../../components/bottom.navbar/bottom.navbar.dart';
-import '../../../../constants/constants.dart';
-import '../../../../db/isar.dart';
-import '../../../../extensions/extensions.dart';
-import '../../../../theme/themes/themes.dart';
+import '../../../../../components/app.bar/appbar.dart';
+import '../../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../../../constants/constants.dart';
+import '../../../../../db/isar.dart';
+import '../../../../../extensions/extensions.dart';
+import '../../../../../theme/themes/themes.dart';
 import '../../add.new.user/view/add.new.user.dart';
-import '../../user.details/view/user.details.dart';
+import '../../../user.details/view/user.details.dart';
 
 String dropdownValue = 'Paid';
 
@@ -25,14 +25,11 @@ class _AllUserViewState extends State<AllUserView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: CustomAppbar(
-          title: 'All User List',
-          isAllUser: true,
-          allRecipents: recipents,
-          message: message,
-        ),
+      appBar: CustomAppbar(
+        title: 'All User List',
+        isAllUser: true,
+        allRecipents: recipents,
+        message: message,
       ),
       body: SizedBox(
         height: context.height,

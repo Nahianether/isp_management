@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:isp_management/src/modules/user/model/user.dart';
+import '../../../../../constants/constants.dart';
+import '../../../../../db/isar.dart';
+import '../../../../../extensions/extensions.dart';
 
-import '../../../../components/app.bar/appbar.dart';
-import '../../../../components/bottom.navbar/bottom.navbar.dart';
-import '../../../../db/isar.dart';
-import '../../../../extensions/extensions.dart';
-import '../../user.details/view/user.details.dart';
+import '../../../../../components/app.bar/appbar.dart';
+import '../../../../../components/bottom.navbar/bottom.navbar.dart';
+import '../../../user.details/view/user.details.dart';
 
-class PaidUser extends ConsumerWidget {
-  const PaidUser({super.key});
+class UnPaidUser extends ConsumerWidget {
+  const UnPaidUser({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: CustomAppbar(title: 'Paid User List'),
+      appBar: CustomAppbar(
+        title: 'UnPaid User List',
+        isAllUser: true,
+        allRecipents: recipents,
+        message: message,
       ),
       body: SizedBox(
         height: context.height,
@@ -26,14 +29,14 @@ class PaidUser extends ConsumerWidget {
             stream: db.users
                 .where()
                 .filter()
-                .paymentTypeEqualTo(PaymentType.paid)
+                .paymentTypeEqualTo(PaymentType.unPaid)
                 .watch(fireImmediately: true),
             builder: (context, snapshot) {
               if (snapshot.data?.isEmpty ?? true) {
-              return const Center(
-                child: Text('No User Found'),
-              );
-            }
+                return const Center(
+                  child: Text('No User Found'),
+                );
+              }
               return ListView.builder(
                 itemCount: snapshot.data?.length ?? 0,
                 itemBuilder: (context, index) {

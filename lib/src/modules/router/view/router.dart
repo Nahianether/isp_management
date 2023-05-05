@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerWidget, WidgetRef;
 
 import '../../../localization/loalization.dart';
-import '../../user/all.user/view/all.user.view.dart' show AllUserView;
+import '../../user/components/all.user/view/all.user.view.dart' show AllUserView;
 
 class AppRouter extends ConsumerWidget {
   const AppRouter({Key? key}) : super(key: key);
