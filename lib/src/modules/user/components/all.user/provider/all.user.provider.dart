@@ -28,6 +28,11 @@ class UserNotifier extends Notifier<List<User>> {
 
   listener() => searchCntrlr.addListener(() => ref.notifyListeners());
 
+  void streamNewData(User user) {
+    state = [...state, user];
+    ref.notifyListeners();
+  }
+
   List<User> preferedUsers([PaymentType? paymentType]) {
     final list = state
         .where((e) =>
