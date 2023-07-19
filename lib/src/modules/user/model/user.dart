@@ -17,9 +17,7 @@ class User {
   String packagePrice;
   DateTime connectionDate;
 
-
   List<BillHistory>? billHistory;
-
 
   @Index()
   @enumerated
@@ -36,6 +34,13 @@ class User {
     required this.paymentType,
     this.billHistory,
   });
+
+  @override
+  bool operator ==(Object other) => other is User && other.id == id;
+
+  @Ignore()
+  @override
+  int get hashCode => id.hashCode;
 }
 
 @embedded
