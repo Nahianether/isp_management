@@ -15,11 +15,14 @@ class UnPaidUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(
-        title: 'UnPaid User List',
-        isAllUser: true,
-        allRecipents: recipents,
-        message: message,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: CustomAppbar(
+          title: 'UnPaid User List',
+          isAllUser: true,
+          allRecipents: recipents,
+          message: message,
+        ),
       ),
       body: const Body(),
       bottomNavigationBar: const KBottomNavBar(),

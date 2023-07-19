@@ -13,7 +13,11 @@ class SettingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(title: 'Setting'),
+      appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: CustomAppbar(
+            title: 'Settings',
+          )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(

@@ -15,7 +15,12 @@ class AddNewUser extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(addUserNotifier.notifier);
     return Scaffold(
-      appBar: const CustomAppbar(title: 'Add New User'),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: CustomAppbar(
+          title: 'Add New User',
+        ),
+      ),
       body: SizedBox(
         height: context.height,
         width: context.width,

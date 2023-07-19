@@ -14,7 +14,12 @@ class PaidUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: CustomAppbar(title: 'Paid User List'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: CustomAppbar(
+          title: 'Paid User List',
+        ),
+      ),
       body: Body(),
       bottomNavigationBar: KBottomNavBar(),
     );

@@ -21,11 +21,14 @@ class AllUserView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(
-        title: 'All User List',
-        isAllUser: true,
-        allRecipents: recipents,
-        message: message,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: CustomAppbar(
+          title: 'All User List',
+          isAllUser: true,
+          allRecipents: recipents,
+          message: message,
+        ),
       ),
       body: const Body(),
       bottomNavigationBar: const KBottomNavBar(),
